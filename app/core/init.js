@@ -2,7 +2,7 @@
 const process = require('process');
 const requireDirectory = require('require-directory');
 const Router = require('koa-router');
-
+const config = require('../config/config');
 class InitManager {
   static init(app) {
     InitManager.app = app;
@@ -19,6 +19,11 @@ class InitManager {
       }
     })
   }
+
+  static initGlobalConfig() {
+    global.config = config;
+  }
+
 }
 
 module.exports = InitManager;
