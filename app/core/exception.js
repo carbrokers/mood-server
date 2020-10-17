@@ -25,8 +25,18 @@ class Success extends HttpException {
   }
 }
 
+class AuthException extends HttpException {
+  constructor(errorCode = 10003, msg = '认证错误', status = 403) {
+    super()
+    this.errorCode = errorCode;
+    this.msg = msg;
+    this.status = status
+  }
+}
+
 module.exports = {
   HttpException,
   Success,
-  ParamsException
+  ParamsException,
+  AuthException
 };

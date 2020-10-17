@@ -1,11 +1,12 @@
 const { User } = require('../models/user');
 
 const isUserAlreadyExits = async (email) => {
-  if (!email) {
-    return false;
-  }
   try {
-    const user = await User.findOne({email});
+    const user = await User.findOne({
+      where: {
+        email
+      }
+    });
     return !!!user;
   } catch (err) {
     throw err;

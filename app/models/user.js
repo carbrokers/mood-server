@@ -3,7 +3,20 @@ const { Model, DataTypes } = require('sequelize');
 const { db } = require('../core/db');
 
 class User extends Model {
-  
+  static async verityEmailAndPwd(email, password) {
+    const user = await User.findOne({
+      where: {
+        email
+      }
+    });
+    if (!user) {
+      throw new global.errs.AuthException();
+    }
+    if (!bcrypt.compareSync(password, user.password)) {
+      throw new global.errs.AuthException();
+    }
+    return user;
+  } 
 };
 
 User.init({
@@ -14,7 +27,7 @@ User.init({
     set(val) {
       let salt = bcrypt.genSaltSync(10);
       let pwd = bcrypt.hashSync(val, salt);
-      this.setDataValue(pwd);
+      this.setDataValue('password', pwd);
     }
   },
   openid: {

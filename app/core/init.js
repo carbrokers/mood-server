@@ -3,10 +3,12 @@ const process = require('process');
 const requireDirectory = require('require-directory');
 const Router = require('koa-router');
 const config = require('../config/config');
+const exception = require('./exception');
 class InitManager {
   static init(app) {
     InitManager.app = app;
     InitManager.initRouter();
+    InitManager.initGlobalData();
   }
 
   static initRouter() {
@@ -20,8 +22,9 @@ class InitManager {
     })
   }
 
-  static initGlobalConfig() {
+  static initGlobalData() {
     global.config = config;
+    global.errs = exception;
   }
 
 }

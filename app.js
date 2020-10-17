@@ -3,14 +3,12 @@ const bodyParser = require('koa-bodyparser');
 const koaValidator = require('koa-async-validator');
 const InitManager = require('./app/core/init');
 const excepition  = require('./app/middleware/catch-exception');
-const { isUserAlreadyExits } = require('./app/validator');
+const customValidators = require('./app/validator');
 
 const app = new Koa();
 app.use(bodyParser());
 app.use(koaValidator({
-  customValidators: {
-    isUserAlreadyExits
-  }
+  customValidators
 }));
 app.use(excepition);
 InitManager.init(app);

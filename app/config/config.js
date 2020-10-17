@@ -6,5 +6,9 @@ module.exports = {
     user: 'root',
     password: '',
     dialect: 'mysql'
+  },
+  security: {
+    secretKey: '2121',
+    expiresIn: 60 * 60
   }
 }
