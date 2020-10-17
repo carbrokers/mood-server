@@ -12,6 +12,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "koa": "^2.13.0",
+    "koa-async-validator": "^0.4.1",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^9.4.0",
     "mysql2": "^2.2.5",
