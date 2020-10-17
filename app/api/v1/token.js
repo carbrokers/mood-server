@@ -3,6 +3,7 @@ const { User } = require('../../models/user');
 const { loginType } = require('../../lib/enum');
 const { success, paramsExption } = require('../../lib/helper');
 const { generateToken } = require('../../lib/helper');
+const  WXManager = require('../services/wx');
 
 const router = new Router({
   prefix: '/api/v1/token'
@@ -22,6 +23,7 @@ router.post('/', async (ctx) => {
         token = await accountLogin(ctx.request.body.email, ctx.request.body.password);
         break;
       case loginType.WECHATLOGIN:
+        token = await WXManager.codeToToken(ctx.request.body.code);
         break;
       case loginType.GITHUBLOGIN:
         break;

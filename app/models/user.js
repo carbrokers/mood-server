@@ -16,7 +16,22 @@ class User extends Model {
       throw new global.errs.AuthException();
     }
     return user;
-  } 
+  }
+
+  static async findUserByOpenId(openId) {
+    const user = await User.findOne({
+      where: { openId }
+    });
+    return user;
+  }
+
+  static async createUserByOpenId(openId) {
+    const user = await User.create({
+      openId
+    });
+    return user;
+  }
+
 };
 
 User.init({

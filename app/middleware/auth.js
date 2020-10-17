@@ -2,10 +2,11 @@ const basicAuth = require('basic-auth');
 const jwt = require('jsonwebtoken');
 
 class Auth {
+  static USERPROTITY = 8;
+  static ADMINPROTITY = 16
+
   constructor(level = 4) {
     this.level = level;
-    Auth.USERPROTITY = 8;
-    Auth.ADMINPROTITY = 16;
   }
 
   get m() {
@@ -25,8 +26,8 @@ class Auth {
         }
       }
 
-      if (this.level <= decode.scope) {
-        throw new new global.errs.AuthException('权限认证失败');
+      if (decode.scope <= this.level) {
+        throw new global.errs.AuthException('权限认证失败');
       }
       ctx.auth = {
         uid: decode.uid,

@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
 const { Success, ParamsException } = require('../core/exception');
 
-const success = (msg, status) => {
-  throw new Success(0, msg, status);
+const success = (msg, status = 200) => {
+  throw new Success(msg, 0, status);
 };
 
 const paramsExption = (msg, status) => {
-  throw new ParamsException(20001, msg, status);
+  throw new ParamsException(msg, 20001, status);
 };
 
 const generateToken = (uid, scope) => {

@@ -29,7 +29,7 @@ router.post('/', async (ctx) => {
   success('创建成功', 200);
 });
 
-router.get('/classic', new Auth(4).m, async (ctx) => {
+router.get('/classic', new Auth(1).m, async (ctx) => {
   ctx.body = {
     s: '2121'
   }
