@@ -7,6 +7,16 @@ class HttpException extends Error {
   }
 }
 
+class Success extends Error {
+  constructor(errorCode = 0, msg = 'ok', status = 201) {
+    super()
+    this.errorCode = errorCode;
+    this.msg = msg;
+    this.status = status
+  }
+}
+
 module.exports = {
   HttpException,
+  Success
 };

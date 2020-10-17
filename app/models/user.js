@@ -1,18 +1,30 @@
-const { Sequelize, Modal } = require('sequelize');
+const bcrypt = require('bcryptjs');
+const { Model, DataTypes } = require('sequelize');
 const { db } = require('../core/db');
 
-class User extends Modal {
-
+class User extends Model {
+  
 };
 
 User.init({
-  nickname: Sequelize.STRING,
-  email: Sequelize.STRING,
-  password: Sequelize.STRING,
+  nickname: DataTypes.STRING,
+  email: DataTypes.STRING,
+  password: {
+    type: DataTypes.STRING,
+    set(val) {
+      let salt = bcrypt.genSaltSync(10);
+      let pwd = bcrypt.hashSync(val, salt);
+      this.setDataValue(pwd);
+    }
+  },
   openid: {
-    type: Sequelize.STRING(64),
+    type: DataTypes.STRING(64),
     unique: true
   }
 }, {
   sequelize: db
 });
+
+module.exports = {
+  User
+};
