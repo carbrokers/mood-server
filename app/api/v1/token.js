@@ -1,7 +1,7 @@
 const Router = require('koa-router');
 const { User } = require('../../models/user');
 const { loginType } = require('../../lib/enum');
-const { success, paramsExption } = require('../../lib/helper');
+const { paramsExption } = require('../../lib/helper');
 const { generateToken } = require('../../lib/helper');
 const  WXManager = require('../services/wx');
 

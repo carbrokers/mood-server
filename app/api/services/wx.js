@@ -13,7 +13,7 @@ class WXManager {
       throw new global.errs.AuthException('获取openid失败');
     } else {
       const { openid, errcode, errmsg } = result.data;
-      if (errcode !== 0) {
+      if (typeof errcode !== 'undefined' && errcode !== 0) {
         throw new global.errs.AuthException(errmsg);
       }
       let user = await User.findUserByOpenId(openid);

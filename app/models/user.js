@@ -18,16 +18,16 @@ class User extends Model {
     return user;
   }
 
-  static async findUserByOpenId(openId) {
+  static async findUserByOpenId(openid) {
     const user = await User.findOne({
-      where: { openId }
+      where: { openid }
     });
     return user;
   }
 
-  static async createUserByOpenId(openId) {
+  static async createUserByOpenId(openid) {
     const user = await User.create({
-      openId
+      openid
     });
     return user;
   }
