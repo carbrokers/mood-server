@@ -1,5 +1,5 @@
 class HttpException extends Error {
-  constructor(msg = '请求错误', errorCode = 10001, status = 400) {
+  constructor(msg = '请求错误', errorCode = 10, status = 400) {
     super()
     this.errorCode = errorCode;
     this.msg = msg;
@@ -8,7 +8,7 @@ class HttpException extends Error {
 }
 
 class ParamsException extends HttpException {
-  constructor(msg = '参数错误', errorCode = 20001, status = 403) {
+  constructor(msg = '参数错误', errorCode = 43, status = 403) {
     super()
     this.errorCode = errorCode;
     this.msg = msg;
@@ -26,7 +26,16 @@ class Success extends HttpException {
 }
 
 class AuthException extends HttpException {
-  constructor(msg = '认证错误', errorCode = 10003, status = 403) {
+  constructor(msg = '权限不足', errorCode = 11, status = 403) {
+    super()
+    this.errorCode = errorCode;
+    this.msg = msg;
+    this.status = status
+  }
+}
+
+class AuthException extends HttpException {
+  constructor(msg = '权限不足', errorCode = 11, status = 403) {
     super()
     this.errorCode = errorCode;
     this.msg = msg;
