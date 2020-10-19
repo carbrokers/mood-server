@@ -15,7 +15,7 @@ router.post('/', async (ctx) => {
   ctx.checkBody('nickname', 'Invalid postparam').notEmpty();
   ctx.checkBody('password', 'Invalid postparam').notEmpty();
   ctx.checkBody('email', 'Invalid postparam').notEmpty();
-  ctx.checkBody('email', '邮件已存在').isUserAlreadyExits();
+  ctx.checkBody('email', 'email has exist').isUserAlreadyExits();
   let errors = await ctx.validationErrors();
   if (errors) {
     return paramsExption(errors[0].msg, 403)
