@@ -4,6 +4,7 @@ const requireDirectory = require('require-directory');
 const Router = require('koa-router');
 const config = require('../config/config');
 const exception = require('./exception');
+
 class InitManager {
   static init(app) {
     InitManager.app = app;
