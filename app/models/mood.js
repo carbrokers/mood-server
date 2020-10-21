@@ -23,7 +23,7 @@ class Mood extends Model {
       });
       return moods;
     } catch (err) {
-      throw 
+      throw global.errs.DBQueryException();
     }
   }
 

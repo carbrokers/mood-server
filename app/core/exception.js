@@ -34,8 +34,8 @@ class AuthException extends HttpException {
   }
 }
 
-class AuthException extends HttpException {
-  constructor(msg = '权限不足', errorCode = 11, status = 403) {
+class DBQueryException extends HttpException {
+  constructor(msg = '数据库查询出错', errorCode = 50, status = 200) {
     super()
     this.errorCode = errorCode;
     this.msg = msg;
@@ -47,5 +47,6 @@ module.exports = {
   HttpException,
   Success,
   ParamsException,
-  AuthException
+  AuthException,
+  DBQueryException
 };
