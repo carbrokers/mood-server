@@ -20,8 +20,15 @@ const generateToken = (uid, scope) => {
   return token;
 };
 
+const formatDate = (timestamp) => {
+  const time = timestamp ? new Date(timestamp) : new Date();
+  const date =  time.getFullYear() + "-" + (time.getMonth()+1) + "-" + time.getDate();
+  return date;
+}
+
 module.exports = {
   success,
   paramsExption,
-  generateToken
+  generateToken,
+  formatDate
 };

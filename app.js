@@ -15,7 +15,7 @@ app.use(koaValidator({
 }));
 app.use(excepition);
 app.use(serve(path.resolve(__dirname, './app/static')));
-app.use(notFoundPage);
 InitManager.init(app);
+app.use(notFoundPage);
 
 app.listen(4000);
