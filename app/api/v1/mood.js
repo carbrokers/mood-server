@@ -10,9 +10,9 @@ const router = new Router({
 
 router.get('/', new Auth().m, async (ctx, next) => {
   const { uid } = ctx.auth;
-  // const { date } = ctx.request.params;
-  // const now = formatDate();
-  const moods = await Mood.getMoodsByDate(uid, Date.now());
+  const { date } = ctx.request.params;
+  const now = date || Date.now();
+  const moods = await Mood.getMoodsByDate(uid, now);
   ctx.body = {
     moods
   }

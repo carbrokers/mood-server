@@ -1,7 +1,7 @@
 const { Model, DataTypes, Op } = require('sequelize');
-const { formatDate } = require('../lib/helper');
 const { db } = require('../core/db');
 const { User } = require('./user');
+const { formatDate, addDays } = require('../lib/helper');
 class Mood extends Model {
   static async createMood(createdBy, score, comment = '') {
     try {
@@ -28,17 +28,30 @@ class Mood extends Model {
     }
   }
 
-  static async getMoodsByDate(createdBy, startDate, limit = 2) {
-    const result = [];
-    const endDateStamp = addDays(startDate, limit);
-    var start = new Date(startDate);
-    var end = new Date(endDateStamp);
+  static async getMoodsByDate(createdBy, now, gap = -2) {
+    const result = {};
+    const beforeDateStamp = addDays(startDate, gap);
+    const before = formatDate(beforeDateStamp);
+    try {
+      const moods = Moods.findMoodsInGap(before, now, createdBy);
+      moods.reduce((acc, cur) => {
+        const { date } = acc;
+        acc[date] ? null : acc[date] = [];
+        acc[date].push(cur);
+      }, result);
+      return moods;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  static async findMoodsInGap(start, end, createdBy) {
     try {
       const moods = await Mood.findAll({
         where: {
           createdBy,
           createdAt: {
-            [Op.between]: [end, start]
+            [Op.between]: [start, end]
           }
         },
         attributes: [
@@ -55,15 +68,8 @@ class Mood extends Model {
       throw global.errs.DBQueryException();
     }
   }
+
 }
-
-function addDays(date, days) {
-  let result = new Date(date);
-  result.setDate(result.getDate() - days);
-  return result;
-}
-
-
 
 Mood.init({
   score: {
